@@ -66,6 +66,10 @@
 	border: none;
 }
 
+.nl-field-toggle:hover {
+	color: #5AA3E8;
+}
+
 /* drop-down list / text element */
 .nl-field ul {
 	position: absolute;
@@ -199,26 +203,12 @@ input:focus::-ms-input-placeholder {
 	color: rgba(255,255,255,0.2);
 }
 
-/* example field below text input */
-.nl-ti-text ul li.nl-ti-example {
-	font-size: 40%;
-	font-style: italic;
-	font-weight: 400;
-	padding: 0.4em 1em;
-	color: rgba(0,0,0,0.2);
-	border-top: 1px dashed rgba(255,255,255,0.7);
-}
-
-.nl-ti-text ul li.nl-ti-example em {
-	color: #fff
-}
-
 /* submit button */
 .nl-submit-wrap {
 	margin-top: 0.4em;
 }
 
-.nl-form .nl-submit {
+.nl-submit {
 	line-height: 3;
 	text-transform: uppercase;
 	cursor: pointer;
@@ -229,15 +219,6 @@ input:focus::-ms-input-placeholder {
 	font-size: 40%;
 	font-weight: bold;
 	letter-spacing: 3px;
-}
-
-.no-touch .nl-form .nl-submit:hover,
-.no-touch .nl-form .nl-submit:active {
-	background: #69B1A9;
-}
-
-.no-touch .nl-form .nl-submit:hover:before {
-	background: #58a199;
 }
 
 /* overlay becomes visible when a field is opened */

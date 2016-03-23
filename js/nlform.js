@@ -162,7 +162,7 @@
 		_setPosition: function() {
 			var ul = this.fld.querySelector('ul');
 			var height = ul.scrollHeight;
-			ul.style.marginTop = '-' + ((height / 2) - 16) + 'px';
+			ul.style.marginTop = '-' + (height - 16) + 'px';
 		},
 		_setFontSize: function() {
 			var computedStyle = window.getComputedStyle(this.toggle);
