@@ -78,15 +78,7 @@
 			this.toggle.innerHTML = this.elOriginal.options[ this.elOriginal.selectedIndex ].innerHTML;
 			this.toggle.className = 'nl-field-toggle';
 			this.optionsList = document.createElement( 'ul' );
-			var ihtml = '';
-			Array.prototype.slice.call( this.elOriginal.querySelectorAll( 'option' ) ).forEach( function( el, i ) {
-				ihtml += self.elOriginal.selectedIndex === i ? '<li class="nl-dd-checked">' + el.innerHTML + '</li>' : '<li>' + el.innerHTML + '</li>';
-				// selected index value
-				if( self.elOriginal.selectedIndex === i ) {
-					self.selectedIdx = i;
-				}
-			} );
-			this.optionsList.innerHTML = ihtml;
+			this.optionsList.innerHTML = this._getListOptions();
 			this.fld.appendChild( this.toggle );
 			this.fld.appendChild( this.optionsList );
 			this.elOriginal.parentNode.insertBefore( this.fld, this.elOriginal );
@@ -111,11 +103,7 @@
 			this.inputsubmit.innerHTML = 'Go';
 			this.getinputWrapper.appendChild( this.getinput );
 			this.getinputWrapper.appendChild( this.inputsubmit );
-			this.example = document.createElement( 'li' );
-			this.example.className = 'nl-ti-example';
-			this.example.innerHTML = this.elOriginal.getAttribute( 'data-subline' );
 			this.optionsList.appendChild( this.getinputWrapper );
-			this.optionsList.appendChild( this.example );
 			this.fld.appendChild( this.toggle );
 			this.fld.appendChild( this.optionsList );
 			this.elOriginal.parentNode.insertBefore( this.fld, this.elOriginal );
@@ -153,7 +141,11 @@
 			this.form.fldOpen = this.pos;
 			var self = this;
 			this.fld.className += ' nl-field-open';
-			this._checkPosition()
+			this._setFontSize();
+			this._checkPosition();
+			if (this.type === 'dropdown') {
+				this._setPosition();
+			}
 		},
 		_checkPosition: function() {
 			var ul = this.fld.querySelector('ul');
@@ -167,6 +159,18 @@
 				ul.style.left = diff+'px';
 			}
 		},
+		_setPosition: function() {
+			var ul = this.fld.querySelector('ul');
+			var height = ul.scrollHeight;
+			ul.style.marginTop = '-' + ((height / 2) - 16) + 'px';
+		},
+		_setFontSize: function() {
+			var computedStyle = window.getComputedStyle(this.toggle);
+			var ul = this.fld.querySelector('ul');
+			Array.prototype.slice.call(ul.children).forEach(function(el, i) {
+				el.style.fontSize = computedStyle.fontSize;
+			});
+		},
 		_getOffset: function(el) {
 			var _x = 0;
 			var _y = 0;
@@ -177,6 +181,27 @@
 			}
 			return { top: _y, left: _x };
 		},
+
+		_getListOptions: function() {
+			var selectedOption = null;
+			var ihtml = '';
+
+			Array.prototype.slice.call(this.elOriginal.querySelectorAll('option')).forEach(function(el, i) {
+				if (el.selected !== true) {
+					ihtml += '<li data-original-index="' + el.index + '">' + el.innerHTML + '</li>';
+				} else {
+					selectedOption = el;
+				}
+			});
+
+			if (selectedOption !== null) {
+				ihtml += '<li class="nl-dd-checked" data-original-index="' + selectedOption.index + '" >' + selectedOption.innerHTML + '</li>';
+				this.selectedIdx = selectedOption.index;
+			}
+
+			return ihtml;
+		},
+
 		close : function( opt, idx, flag ) {
 			if( !this.open ) {
 				return false;
@@ -190,14 +215,16 @@
 			if( this.type === 'dropdown' ) {
 				if( opt ) {
 					// remove class nl-dd-checked from previous option
-					var selectedopt = this.optionsList.children[ this.selectedIdx ];
+					var selectedopt = this.optionsList.children[ this.optionsList.children.length - 1 ];
 					selectedopt.className = '';
 					opt.className = 'nl-dd-checked';
 					this.toggle.innerHTML = opt.innerHTML;
 					// update selected index value
-					this.selectedIdx = idx;
+					this.selectedIdx = opt.dataset.originalIndex;
 					// update original select element´s value
 					this.elOriginal.value = this.elOriginal.children[ this.selectedIdx ].value;
+					this.optionsList.innerHTML = this._getListOptions();
+					this._initEvents();
 					if ("createEvent" in document) {
 					    var evt = document.createEvent("HTMLEvents");
 					    evt.initEvent("change", false, true);

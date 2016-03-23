@@ -61,60 +61,71 @@
 .nl-form select  {
 	line-height: inherit;
 	display: inline-block;
-	color: #b14943;
+	color: #5AA3E8;
 	cursor: pointer;
-	border-bottom: 1px dashed #b14943;
+	border: none;
 }
 
 /* drop-down list / text element */
 .nl-field ul {
 	position: absolute;
 	visibility: hidden;
-	background: #76C3BD;
 	left: -0.5em;
 	top: 50%;
 	font-size: 80%;
 	opacity: 0;
-	-webkit-transform: translateY(-40%) scale(0.9);
-	-moz-transform: translateY(-40%) scale(0.9);
-	transform: translateY(-40%) scale(0.9);
-	-webkit-transition: visibility 0s 0.3s, opacity 0.3s, -webkit-transform 0.3s;
-	-moz-transition: visibility 0s 0.3s, opacity 0.3s, -moz-transform 0.3s;
-	transition: visibility 0s 0.3s, opacity 0.3s, transform 0.3s;
+	-moz-transition: none;
+	-webkit-transition: none;
+	-o-transition: color 0 ease-in;
+	transition: none;
+	list-style: none;
+	padding: 0;
+	background: #FFF;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+	border: 1px solid #DEDEDE;
 }
 
 .nl-field.nl-field-open ul {
 	visibility: visible;
 	opacity: 1;
-	-webkit-transform: translateY(-50%) scale(1);
-	-moz-transform: translateY(-50%) scale(1);
-	transform: translateY(-50%) scale(1);
-	-webkit-transition: visibility 0s 0s, opacity 0.3s, -webkit-transform 0.3s;
-	-moz-transition: visibility 0s 0s, opacity 0.3s, -moz-transform 0.3s;
-	transition: visibility 0s 0s, opacity 0.3s, transform 0.3s;
+	-moz-transition: none;
+	-webkit-transition: none;
+	-o-transition: color 0 ease-in;
+	transition: none;
+	list-style: none;
+	padding: 0;
+	margin-left: -5px;
 }
 
 .nl-field ul li {
-	color: #fff;
+	color: #5AA3E8;
+	font-size: 14px;
+	text-align: left;
+	margin: 0;
+	padding: 5px 10px;
+	overflow: hidden;
 	position: relative;
 }
 
 .nl-dd ul li {
-	padding: 0 1.5em 0 0.5em;
+	padding: 5px 10px;
 	cursor: pointer;
 	white-space: nowrap;
 }
 
-.nl-dd ul li.nl-dd-checked {
-	color: #478982;
-}
-
 .no-touch .nl-dd ul li:hover {
-	background: rgba(0,0,0,0.05);
+	background: #F5F5F5;
+	color: #5AA3E8;
 }
 
 .no-touch .nl-dd ul li:hover:active {
-	color: #478982;
+	color: #FFF;
+}
+
+.nl-dd ul li.nl-dd-checked,
+.nl-dd ul li.nl-dd-checked:hover {
+	color: #FFF;
+	background: #5AA3E8;
 }
 
 /* icons for some elements */
@@ -128,51 +139,41 @@
 	font-variant: normal;
 	text-transform: none;
 	-webkit-font-smoothing: antialiased;
+	content: "";
 }
 
-.nl-dd ul li.nl-dd-checked:before {
-	content: "\e000";
-	position: absolute;
-	right: 1em;
-	font-size: 50%;
-	line-height: 3;
-}
-
-.nl-ti-text ul {
+.nl-field.nl-ti-text ul {
 	min-width: 8em;
+	margin-left: -10px;
+}
+
+.nl-ti-text ul li.nl-ti-input {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
 }
 
 .nl-ti-text ul li.nl-ti-input input {
-	width: 100%;
-	padding: 0.2em 2em 0.2em 0.5em;
+	width: 100px;
+	padding: 2px 5px;
 	border-bottom: none;
-	color: #fff;
+	color: #5AA3E8;
+	border: 1px solid #dedede;
+	text-align: left;
 }
 
-.nl-form .nl-field-go {
-	position: absolute;
-	right: 0;
-	top: 0;
-	height: 100%;
+.nl-field-go {
 	cursor: pointer;
-	background: rgba(0,0,0,0.1);
-	width: 1.8em;
+	background: #5AA3E8;
+	width: 35px;
 	text-align: center;
-	color: transparent;
-}
-
-.nl-field-go:before {
-	content: "\e001";
-	font-size: 75%;
-	color: #fff;
-	width: 100%;
-	line-height: 2.5;
-	display: block;
+	color: #FFF;
+	border: medium none;
 }
 
 /* custom placeholder color */
 input::-webkit-input-placeholder {
-	color: rgba(255,255,255,0.8);
+	color: rgba(0, 0, 0, 0.1);
 }
 
 input:active::-webkit-input-placeholder ,
@@ -189,7 +190,7 @@ input:focus::-moz-placeholder {
 	color: rgba(255,255,255,0.2);
 }
 
-input:-ms-input-placeholder {  
+input:-ms-input-placeholder {
 	color: rgba(255,255,255,0.8);
 }
 
@@ -230,15 +231,6 @@ input:focus::-ms-input-placeholder {
 	letter-spacing: 3px;
 }
 
-.nl-submit:before {
-	content: "\e001";
-	color: #fff;
-	float: left;
-	padding: 0 0.7em;
-	margin: 0 0.8em 0 0;
-	background: #69B1A9;
-}
-
 .no-touch .nl-form .nl-submit:hover,
 .no-touch .nl-form .nl-submit:active {
 	background: #69B1A9;
@@ -255,13 +247,14 @@ input:focus::-ms-input-placeholder {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0,0,0,0.01);
 	opacity: 0;
 	z-index: 9999;
 	visibility: hidden;
-	-webkit-transition: visibility 0s 0.3s, opacity 0.3s;
-	-moz-transition: visibility 0s 0.3s, opacity 0.3s;
-	transition: visibility 0s 0.3s, opacity 0.3s;
+	-moz-transition: none;
+	-webkit-transition: none;
+	-o-transition: color 0 ease-in;
+	transition: none;
 }
 
 .nl-field.nl-field-open ~ .nl-overlay {
