@@ -143,9 +143,7 @@
 			this.fld.className += ' nl-field-open';
 			this._setFontSize();
 			this._checkPosition();
-			if (this.type === 'dropdown') {
-				this._setPosition();
-			}
+			this._setPosition();
 		},
 		_checkPosition: function() {
 			var ul = this.fld.querySelector('ul');
@@ -161,8 +159,10 @@
 		},
 		_setPosition: function() {
 			var ul = this.fld.querySelector('ul');
-			var height = ul.scrollHeight;
-			ul.style.marginTop = '-' + (height - 16) + 'px';
+			var computedStyle = window.getComputedStyle(ul);
+			var height = computedStyle.height.replace('px', '');
+			var difference = (this.type === 'input') ? 9 : 6;
+			ul.style.marginTop = '-' + (height - difference) + 'px';
 		},
 		_setFontSize: function() {
 			var computedStyle = window.getComputedStyle(this.toggle);

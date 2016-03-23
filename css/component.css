@@ -74,8 +74,6 @@
 .nl-field ul {
 	position: absolute;
 	visibility: hidden;
-	left: -0.5em;
-	top: 50%;
 	font-size: 80%;
 	opacity: 0;
 	-moz-transition: none;
@@ -91,14 +89,13 @@
 
 .nl-field.nl-field-open ul {
 	visibility: visible;
-	opacity: 1;
 	-moz-transition: none;
 	-webkit-transition: none;
 	-o-transition: color 0 ease-in;
 	transition: none;
 	list-style: none;
 	padding: 0;
-	margin-left: -5px;
+	margin-left: -10px;
 }
 
 .nl-field ul li {
@@ -148,7 +145,7 @@
 
 .nl-field.nl-ti-text ul {
 	min-width: 8em;
-	margin-left: -10px;
+	margin-left: -16px;
 }
 
 .nl-ti-text ul li.nl-ti-input {
