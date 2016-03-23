@@ -96,6 +96,7 @@
 	list-style: none;
 	padding: 0;
 	margin-left: -10px;
+	opacity: 1;
 }
 
 .nl-field ul li {
