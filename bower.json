@@ -6,5 +6,5 @@
     "js/nlform.js",
     "js/modernizr.custom.js"
   ],
-  ignore: []
+  "ignore": []
 }
