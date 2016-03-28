@@ -159,10 +159,23 @@
 		},
 		_setPosition: function() {
 			var ul = this.fld.querySelector('ul');
-			var computedStyle = window.getComputedStyle(ul);
-			var height = computedStyle.height.replace('px', '');
+
+			var offset = 0;
+			var reachedSelected = false;
+			if (ul.childElementCount > 0) {
+				Array.prototype.slice.call(ul.children).forEach(function(li) {
+					if (!reachedSelected) {
+						var compStyle = window.getComputedStyle(li);
+						var liHeight = compStyle.height.replace('px', '');
+						offset += liHeight * 1;
+					}
+
+					reachedSelected = (li.className === 'nl-dd-checked') ? true : reachedSelected;
+				});
+			}
+
 			var difference = (this.type === 'input') ? 9 : 6;
-			ul.style.marginTop = '-' + (height - difference) + 'px';
+			ul.style.marginTop = '-' + (offset - difference) + 'px';
 		},
 		_setFontSize: function() {
 			var computedStyle = window.getComputedStyle(this.toggle);
@@ -185,19 +198,19 @@
 		_getListOptions: function() {
 			var selectedOption = null;
 			var ihtml = '';
+			var self = this;
 
 			Array.prototype.slice.call(this.elOriginal.querySelectorAll('option')).forEach(function(el, i) {
-				if (el.selected !== true) {
-					ihtml += '<li data-original-index="' + el.index + '">' + el.innerHTML + '</li>';
-				} else {
-					selectedOption = el;
-				}
-			});
+				var cls = '';
 
-			if (selectedOption !== null) {
-				ihtml += '<li class="nl-dd-checked" data-original-index="' + selectedOption.index + '" >' + selectedOption.innerHTML + '</li>';
-				this.selectedIdx = selectedOption.index;
-			}
+				if (el.selected) {
+					cls = 'nl-dd-checked';
+					self.selectedIdx = el.index;
+				}
+
+				ihtml += '<li class="' + cls + '" data-original-index="' + el.index + '">' + el.innerHTML + '</li>';
+
+			});
 
 			return ihtml;
 		},
