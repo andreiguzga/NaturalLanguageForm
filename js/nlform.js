@@ -88,8 +88,6 @@
 		},
 		_createInput : function() {
 			var self = this;
-			console.log(self);
-
 			this.fld = document.createElement( 'div' );
 			this.fld.className = 'nl-field nl-ti-text';
 			this.toggle = document.createElement( 'a' );
