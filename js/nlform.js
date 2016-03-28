@@ -37,7 +37,7 @@
 			} );
 			Array.prototype.slice.call( this.el.querySelectorAll( 'input' + self.elClass + ':not([type="hidden"]):not([type="submit"])' ) ).forEach( function( el, i ) {
 				self.fldOpen++;
-				self.fields.push( new NLField( self, el, 'input', self.fldOpen ) );
+				self.fields.push( new NLField( self, el, 'input', self.fldOpen, self.submitButtonText ) );
 			} );
 			this.overlay.addEventListener( 'click', function(ev) { self._closeFlds(); } );
 			this.overlay.addEventListener( 'touchstart', function(ev) { self._closeFlds(); } );
@@ -49,10 +49,11 @@
 		}
 	};
 
-	function NLField( form, el, type, idx ) {
+	function NLField( form, el, type, idx, submitButtonText ) {
 		var parsed = el.getAttribute('data-parsed');
 		if (parsed != 1) {
 			el.setAttribute('data-parsed', 1);
+			this.submitButtonText = (submitButtonText !== undefined) ? submitButtonText : 'Ok';
 			this.form = form;
 			this.elOriginal = el;
 			this.pos = idx;
@@ -87,6 +88,8 @@
 		},
 		_createInput : function() {
 			var self = this;
+			console.log(self);
+
 			this.fld = document.createElement( 'div' );
 			this.fld.className = 'nl-field nl-ti-text';
 			this.toggle = document.createElement( 'a' );
