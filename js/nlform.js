@@ -174,7 +174,7 @@
 				});
 			}
 
-			var difference = (this.type === 'input') ? 9 : 6;
+			var difference = (this.type === 'input') ? 12 : 9;
 			ul.style.marginTop = '-' + (offset - difference) + 'px';
 		},
 		_setFontSize: function() {
