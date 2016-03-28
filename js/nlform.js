@@ -18,12 +18,13 @@
 		String.prototype.trim=function(){return this.replace(/^\s+|\s+$/g, '');};
 	}
 
-	function NLForm( el, elClass ) {
+	function NLForm( el, elClass, submitButtonText ) {
 		this.el = el;
 		this.overlay = this.el.querySelector( '.nl-overlay' );
 		this.elClass = (elClass !== undefined) ? '.' + elClass : '';
 		this.fields = [];
 		this.fldOpen = -1;
+		this.submitButtonText = (submitButtonText !== undefined) ? submitButtonText : 'Ok';
 		this._init();
 	}
 
@@ -100,7 +101,7 @@
 			this.getinputWrapper.className = 'nl-ti-input';
 			this.inputsubmit = document.createElement( 'button' );
 			this.inputsubmit.className = 'nl-field-go';
-			this.inputsubmit.innerHTML = 'Go';
+			this.inputsubmit.innerHTML = this.submitButtonText;
 			this.getinputWrapper.appendChild( this.getinput );
 			this.getinputWrapper.appendChild( this.inputsubmit );
 			this.optionsList.appendChild( this.getinputWrapper );
