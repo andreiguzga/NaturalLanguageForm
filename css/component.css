@@ -85,6 +85,7 @@
 	background: #FFF;
 	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 	border: 1px solid #DEDEDE;
+	display: none;
 }
 
 .nl-field.nl-field-open ul {
@@ -97,6 +98,7 @@
 	padding: 0;
 	margin-left: -20px;
 	opacity: 1;
+	display: block;
 }
 
 .nl-field ul li {
