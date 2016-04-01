@@ -98,6 +98,9 @@
 			this.getinput.setAttribute( 'type', this.elOriginal.getAttribute('type')? this.elOriginal.getAttribute('type'): '');
 			this.getinput.setAttribute( 'placeholder', this.elOriginal.getAttribute( 'placeholder' ) );
 			this.getinput.setAttribute( 'value', this.elOriginal.getAttribute('value')? this.elOriginal.getAttribute('value'): '');
+			this.getinput.setAttribute( 'min', this.elOriginal.getAttribute('min')? this.elOriginal.getAttribute('min'): '');
+			this.getinput.setAttribute( 'max', this.elOriginal.getAttribute('max')? this.elOriginal.getAttribute('max'): '');
+			this.getinput.setAttribute( 'step', this.elOriginal.getAttribute('step')? this.elOriginal.getAttribute('step'): '');
 			this.getinputWrapper = document.createElement( 'li' );
 			this.getinputWrapper.className = 'nl-ti-input';
 			this.inputsubmit = document.createElement( 'button' );
@@ -251,8 +254,34 @@
 			}
 			else if( this.type === 'input' ) {
 				this.getinput.blur();
-				this.toggle.innerHTML = this.getinput.value.trim() !== '' ? this.getinput.value : this.getinput.getAttribute( 'placeholder' );
-				this.elOriginal.value = this.getinput.value;
+
+				var value = this.getinput.value;
+				var innerHTML = this.getinput.getAttribute('placeholder');
+				if (this.elOriginal.type === 'number') {
+					var max = (this.elOriginal.max !== '') ? this.elOriginal.max * 1 : null;
+					var min = (this.elOriginal.min !== '') ? this.elOriginal.min * 1 : null;
+					var step = (this.elOriginal.step !== '') ? this.elOriginal.step * 1 : null;
+
+					if (min !== null) {
+						value = (value < min) ? min : value;
+					}
+
+					if (max !== null) {
+						value = (value > max) ? max : value;
+					}
+
+					if (step !== null) {
+						var m = (value * 1) % step;
+						if (m !== 0) {
+							var diff = step - m;
+							value = (value * 1) + diff;
+						}
+					}
+				}
+
+				innerHTML = (value !== '') ? value : innerHTML;
+				this.toggle.innerHTML = innerHTML;
+				this.elOriginal.value = this.getinput.value = value;
 			}
 		}
 	};
